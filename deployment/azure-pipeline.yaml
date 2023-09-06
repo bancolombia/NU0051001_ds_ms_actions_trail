@@ -1,0 +1,66 @@
+name: d2b.at.$(Build.SourceBranchName).$(date:yyyyMMdd)$(rev:.r)
+
+variables:
+  componentName: 'ds_ms_actions_trail'
+  componentNameTag: 'ds-ms-actions-trail'
+  gitRepositoryName: 'NU0051001_Engagement_Services_MR'
+  artifactory.Repository: 'build-NU0051_Digital_Banking_Bancolombia_D2B/$(componentName)'
+
+resources:
+  repositories:
+    - repository: d2b_templates
+      type: git
+      ref: trunk
+      name: NU0051001_D2B_Templates
+
+trigger:
+  branches:
+    include:
+      - trunk
+      - feature/*
+  paths:
+    include:
+      - 'ds_ms_actions_trail/*'
+
+jobs:
+  - job: build
+    pool:
+      name: Build
+      demands:
+        - java
+        - JAVA_HOME_11_X64
+        - Agent.OS -equals Linux
+    steps:
+      - checkout: self
+        persistCredentials: true
+      - script: |
+          cd $(Build.SourcesDirectory)/$(componentName)/
+          gradle wrapper
+        displayName: 'Generate gradle wrapper'
+      - template: /pipeline-templates/CD/build-template.yml@d2b_templates
+      - template: /pipeline-templates/CD/test-results-publish-template.yml@d2b_templates
+      - template: /pipeline-templates/CD/artifact-publish-template.yml@d2b_templates
+        parameters:
+          publishArtifactory: false
+          forcePublish: false
+          publishExtraArtifacts: false
+          publishPerformanceArtifacts: false
+          componentName: $(componentNameTag)
+      - task: ArtifactoryGenericUpload@1
+        displayName: 'Artifactory: Generic upload'
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/trunk'))
+        inputs:
+          artifactoryService: Artifactory
+          fileSpec: |
+            {
+              "files": [
+                {
+                  "pattern": "$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber).zip",
+                  "target": "$(artifactory.Repository)/"
+                }
+              ]
+            }
+          collectBuildInfo: true
+          includeEnvVars: true
+
+  - template: /pipeline-templates/CD/vulnerabilities-template.yml@d2b_templates

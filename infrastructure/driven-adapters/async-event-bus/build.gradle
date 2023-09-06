@@ -1,0 +1,19 @@
+dependencies {
+    implementation project(':usecase')
+    implementation project(':exception')
+
+    compileOnly 'org.springframework:spring-context'
+    compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation "co.com.bancolombia.d2b:messaging-rabbitmq"
+    implementation(platform("co.com.bancolombia.d2b:core-bom:$D2BSDKVersion"))
+    annotationProcessor(platform("co.com.bancolombia.d2b:core-bom:$D2BSDKVersion"))
+    testAnnotationProcessor(platform("co.com.bancolombia.d2b:core-bom:$D2BSDKVersion"))
+
+    implementation "co.com.bancolombia:technical-log:$technicalLogVersion"
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4j2Version}"
+
+    testImplementation 'org.springframework:spring-context'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation project(':test-commons')
+}

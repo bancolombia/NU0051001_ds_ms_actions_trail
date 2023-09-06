@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':exception')
+    compileOnly 'org.springframework:spring-context'
+    implementation "co.com.bancolombia.d2b:web-client:$D2BSDKVersion"
+    implementation "co.com.bancolombia.d2b:cognito-creds-injector:$D2BSDKVersion"
+    compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation("com.squareup.okhttp3:mockwebserver:$OkHttp3Version")
+    testImplementation("com.squareup.okhttp3:okhttp:$OkHttp3Version")
+}

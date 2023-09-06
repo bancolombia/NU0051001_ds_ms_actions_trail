@@ -1,0 +1,18 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':exception')
+    compileOnly 'org.springframework:spring-context'
+    compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation "com.lowagie:itext:$itextVersion"
+    implementation "org.bouncycastle:bcprov-jdk14:$bcprovVersion"
+    implementation "net.sourceforge.dynamicreports:dynamicreports-core:$dynamicReportsVersion"
+    implementation "org.apache.xmlgraphics:batik-transcoder:$batikTranscoderVersion"
+    implementation "org.apache.xmlgraphics:batik-codec:$batikCodecVersion"
+    implementation "co.com.bancolombia.d2b:s3-gateway:$D2BSDKVersion"
+    testImplementation project(':test-commons')
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+

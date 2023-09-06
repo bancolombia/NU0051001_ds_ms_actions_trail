@@ -1,0 +1,34 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+	implementation project(':usecase')
+    implementation project(':exception')
+    implementation project(':validator')
+    implementation project(':reactive-web')
+    implementation project(':async-event-bus')
+    implementation project(':mongo-repository')
+    implementation project(':reactive-web')
+    implementation project(':report-adapter')
+	implementation project(':rest-consumer')
+
+    implementation "org.yaml:snakeyaml:$snakeyamlVersion"
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+}
+
+task explodedJar(type: Copy) {
+    with jar
+    into "${buildDir}/exploded"
+}
+
+jar {
+    // To disable the *-plain.jar
+    enabled = false
+}
+
+bootJar {
+    // Sets output jar name
+    archiveFileName = "${project.getParent().getName()}.${archiveExtension.get()}"
+}

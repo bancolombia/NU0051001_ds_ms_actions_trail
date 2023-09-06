@@ -1,0 +1,23 @@
+{
+  "searchCriteria": {
+    "dateRange": {
+      "startDate": "#(startDate)",
+      "endDate": "#(endDate)"
+    },
+    "state": "#(state)",
+    "type": "#(transactionType)",
+    "name": "#(transactionName)",
+    "bankEntity": "#(bankEntity)",
+    "product": {
+      "type": "#(productType)",
+      "number": "#(productNumber)"
+    },
+    "user": {
+      "identification": {
+        "type": "#(userType)",
+        "number": "#(userNumber)"
+      },
+      "name": "#(userName)"
+    }
+  }
+}

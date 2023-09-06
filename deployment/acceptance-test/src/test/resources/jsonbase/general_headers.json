@@ -1,0 +1,14 @@
+{
+  "message-id": "8f86702e-f66b-4f76-9d2d-6f7b0650734d",
+  "session-tracker": "448589",
+  "request-timestamp": "1669940362",
+  "channel": "D2B",
+  "app-version": "2.0",
+  "device-id": "asus-rog-G752",
+  "ip": "127.0.0.1",
+  "identification-type": "#(idType)",
+  "identification-number": "#(idNumber)",
+  "Content-Type": "application/json",
+  "platform-type": "web",
+  "user-agent": "{'device':'motorola panell_d','os':'Android motorola','browser':'Chrome'}"
+}

@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(':model')
+
+    compileOnly 'org.springframework:spring-context'
+    compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation 'org.springdoc:springdoc-openapi-webflux-ui'
+}

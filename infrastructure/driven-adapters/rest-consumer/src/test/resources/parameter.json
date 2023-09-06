@@ -1,0 +1,24 @@
+{
+  "data": {
+    "channelId": "TEST3",
+    "transactionCode": "101",
+    "paramName": "consultaActividades",
+    "description": "parametros de consulta de actividades",
+    "enabled": true,
+    "appliedAction": "creacion",
+    "paramValue": [
+      {
+        "type": "monetarias",
+        "description": "{\"field\":\"Destino\",\"value\":[{\"name\":\"Pago de nomina\",\"id\":\"nomina\"},{\"name\":\"Pago tarjeta\",\"id\":\"tarjeta\"}]}"
+      },
+      {
+        "type": "nomonetarias",
+        "description": "{\"field\":\"Destino\",\"value\":[{\"name\":\"transferencia\",\"id\":\"transfer\"},{\"name\":\"consulta de tarjeta\",\"id\":\"cardQuery\"}]}"
+      }
+    ]
+  },
+  "meta": {
+    "code": "002",
+    "message": "Parámetro consultado exitosamente"
+  }
+}

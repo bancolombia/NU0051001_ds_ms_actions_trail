@@ -1,0 +1,12 @@
+{
+  "message-id": "#(idMessage)",
+  "session-tracker": "#(idSession)",
+  "request-timestamp": "#(idRequestTime)",
+  "channel": "#(idChannel)",
+  "app-version": "#(idAppVer)",
+  "device-id": "#(idDevice)",
+  "ip": "#(ip)",
+  "identification-type": "#(idType)",
+  "identification-number": "#(idNumber)",
+  "platform-type": "#(platformType)"
+}

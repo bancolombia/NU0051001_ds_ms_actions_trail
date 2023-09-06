@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':usecase')
+    implementation project(':exception')
+
+    implementation "com.github.bancolombia:aws-secrets-manager-sync:${bancolombiaSecretManagerVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    testImplementation project(':test-commons')
+
+}

@@ -1,0 +1,18 @@
+{
+  "channelId": "#(channel)",
+  "transactionCode": "100",
+  "paramName": "consultaActividades",
+  "description": "Parametros consulta actividades - Automatización",
+  "enabled": true,
+  "appliedAction": "creacion",
+  "paramValue": [
+    {
+      "type": "monetarias",
+      "description": "{\"field\":\"Destino\",\"value\":[{\"name\":\"Pago de nomina\",\"id\":\"nomina\"},{\"name\":\"Pago tarjeta\",\"id\":\"tarjeta\"}]}"
+    },
+    {
+      "type": "no_monetarias",
+      "description": "{\"field\":\"Destino\",\"value\":[{\"name\":\"transferencia\",\"id\":\"transfer\"},{\"name\":\"consulta de tarjeta\",\"id\":\"cardQuery\"}]}"
+    }
+  ]
+}

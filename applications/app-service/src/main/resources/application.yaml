@@ -1,0 +1,153 @@
+##Spring Configuration
+server:
+  port: ${APP_PORT}
+
+spring:
+  application:
+    name: ${APP_NAME}
+  webflux:
+    base-path: ${BASE_PATH}
+  devtools:
+    add-properties: false
+
+springdoc:
+  version: ${MS_VERSION}
+  swagger-ui:
+    path: ${SWAGGER_PATH}
+
+logging:
+  level:
+    root: ${LOG4J_LEVEL}
+
+management:
+  health:
+    probes:
+      enabled: true
+  endpoint:
+    health:
+      show-details: ${SHOW_DETAILS}
+      enabled: true
+      cache:
+        time-to-live: 10s
+  endpoints:
+    web:
+      base-path: /
+      path-mapping:
+        health: health
+        liveness: liveness
+        readiness: readiness
+      exposure:
+        include: health, liveness, readiness, metrics
+
+settings:
+  pagination:
+    default-page-size: ${DEFAULT_PAGE_SIZE}
+    default-page-number: ${DEFAULT_PAGE_NUMBER}
+
+routes:
+  path-mapping:
+    action-search:
+      byCriteria: /actions-search
+      byTrackerId: /actions-search/{trackerId}
+    action-report:
+      byCriteria: /report
+      history: /report/{trackerId}
+      detail: /detailed-report/{id}
+    parameter:
+      product: /products
+      allParameters: /parameters
+
+adapter:
+  channel: ${CHANNEL}
+  rest-consumer:
+    base-url: ${REST_CONSUMER_BASE_URL}
+    channel-management:
+      baseUrl: /channel-management
+      parameterPath: /parameter/by
+  publisher: distributionMicroservice
+  prefix: business.action-trail
+  event-business-action:
+    actionPrefix: action
+    reportPrefix: report
+    suffix:
+      actionHistoryQueryDone: actionHistoryQueryDone
+      actionHistoryQueryRejected: actionHistoryQueryRejected
+      actionSearchDone: actionSearchDone
+      actionSearchRejected: actionSearchRejected
+      actionHistoryDownloadDone: actionHistoryDownloadDone
+      actionHistoryDownloadRejected: actionHistoryDownloadRejected
+      actionDetailedReportDone: actionDetailedReportDone
+      actionDetailedReportRejected: actionDetailedReportRejected
+      actionDownloadDone: actionDownloadDone
+      actionDownloadRejected: actionDownloadRejected
+
+  persistence:
+    searchCriteriaCodesMapping:
+      bankEntity: ${BANK_ENTITY_FIELD}
+      date: ${DATE_FIELD}
+      transactionName: ${TRANSACTION_NAME_FIELD}
+      productNumber: ${PRODUCT_NUMBER_FIELD}
+      productType: ${PRODUCT_TYPE_FIELD}
+      state: ${STATE_FIELD}
+      transactionCode: ${TRANSACTION_CODE_FIELD}
+      transactionId: ${TRANSACTION_ID_FIELD}
+      transactionTracker: ${TRANSACTION_TRACKER_FIELD}
+      type: ${TYPE_FIELD}
+      userFullName: ${USER_FULL_NAME_FIELD}
+      userIdentificationNumber: ${USER_IDENTIFICATION_NUMBER_FIELD}
+      userIdentificationType: ${USER_IDENTIFICATION_TYPE_FIELD}
+
+d2b:
+  aws:
+    secrets-manager:
+      region: ${AWS_REGION}
+    s3:
+      region: ${AWS_REGION}
+  secrets:
+    rabbitmq: ${APP_CODE}-${SHORT_PROJECT}-${ENV}-rabbitmq-engagement-${CHANNEL}
+    mongodb: ${APP_CODE}-${SHORT_PROJECT}-${ENV}-mongodb-engagement-${CHANNEL}
+    cognito: ${APP_CODE}-${SHORT_PROJECT}-${ENV}-cognito-${CHANNEL}
+  auth:
+    cognito:
+      endpoint: ${COGNITO_ENDPOINT}
+      scope: ${COGNITO_SCOPE}
+      grant-type: ${COGNITO_GRANT_TYPE}
+
+report:
+  images:
+    bankLogo: ${BANK_LOGO_URL}
+    supervisedLogo: ${SUPERVISED_LOGO_URL}
+    strokeImage: ${STROKE_IMAGE_URL}
+  header:
+    reportByCriteriaTitle: ${REPORT_BY_CRITERIA_TITLE}
+    reportHistoryTitle: ${REPORT_HISTORY_TITLE}
+    reportDetailedTitle: ${REPORT_DETAILED_TITLE}
+    personalizedChannelName: ${PERSONALIZED_CHANNEL_NAME}
+  fields:
+    basicInformation: ${BASIC_INFORMATION}
+    detailedInformation: ${DETAILED_INFORMATION}
+    historyInformation: ${HISTORY_INFORMATION}
+  font:
+    size:
+      columnPdf: ${REPORT_FONT_SIZE_COLUMN_PDF}
+      columnXlsx: ${REPORT_FONT_SIZE_COLUMN_XLSX}
+  style:
+    column:
+      padding: ${REPORT_STYLE_COLUMN_PADDING}
+  format:
+    date: ${REPORT_FORMAT_DATE}
+    number: ${REPORT_FORMAT_NUMBER}
+    pageIndex: ${REPORT_PAGE_INDEX}
+  detailed-report:
+    basicReportSubtitle: ${BASIC_REPORT_SUBTITLE}
+    detailedReportSubtitle: ${DETAILED_REPORT_SUBTITLE}
+  filename:
+    byCriteria: ${REPORT_BY_CRITERIA_FILENAME}
+    history: ${REPORT_HISTORY_FILENAME}
+    detailed: ${REPORT_DETAILED_FILENAME}
+    secureMailBoxTransactionCode: ${SECURE_MAILBOX_TRANSACTION_CODE}
+  cloudName: ${REPORT_CLOUD_NAME}
+
+channel-management:
+  transactionCode: ${CHANNEL_TRANSACTION_CODE}
+  parameterName: ${ACTIONS_TRAIL_PARAMETER_NAME}

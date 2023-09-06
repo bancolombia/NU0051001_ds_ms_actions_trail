@@ -1,0 +1,153 @@
+server:
+  port: ${APP_PORT:8090}
+
+spring:
+  application:
+    name: ${APP_NAME:ds-ms-actions-trail}
+  webflux:
+    base-path: ${BASE_PATH:/api/v1/actions-trail}
+
+springdoc:
+  version: ${MS_VERSION:1.0.0}
+  swagger-ui:
+    path: ${SWAGGER_PATH:doc/swagger-ui.html}
+
+logging:
+  level:
+    root: ${LOG4J_LEVEL:INFO}
+
+management:
+  endpoint:
+    health:
+      show-details: ${SHOW_DETAILS:always}
+
+settings:
+  pagination:
+    default-page-size: "10"
+    default-page-number: "1"
+
+adapter:
+  channel: ${CHANNEL:dbb}
+  rest-consumer:
+    base-url: https://distribucion-digital-internal-dev.apps.ambientesbc.com/digital-distribution/api/v1/
+  persistence:
+    searchCriteriaCodesMapping:
+      bankEntity: ${BANK_ENTITY_FIELD:originBankCode}
+      date: ${DATE_FIELD:finalDate}
+      transactionName: ${TRANSACTION_NAME_FIELD:transactionCodeDesc}
+      productNumber: ${PRODUCT_NUMBER_FIELD:originProductNumber}
+      productType: ${PRODUCT_TYPE_FIELD:originProductType}
+      state: ${STATE_FIELD:transactionState}
+      transactionCode: ${TRANSACTION_CODE_FIELD:transactionCode}
+      transactionId: ${TRANSACTION_ID_FIELD:id}
+      transactionTracker: ${TRANSACTION_TRACKER_FIELD:transactionTracker}
+      type: ${TYPE_FIELD:transactionType}
+      userFullName: ${USER_FULL_NAME_FIELD:authorizedUserName}
+      userIdentificationNumber: ${USER_IDENTIFICATION_NUMBER_FIELD:authorizedUserDocumentNumber}
+      userIdentificationType: ${USER_IDENTIFICATION_TYPE_FIELD:authorizedUserDocumentType}
+
+d2b:
+  aws:
+    secrets-manager:
+      region: us-east-1
+      endpoint: http://localhost:4566
+    s3:
+      region: us-east-1
+      endpoint: http://localhost:4566
+  secrets:
+    rabbitmq: nu0051001-d2b-local-rabbitmq-engagement-dbb
+    mongodb: nu0051001-d2b-local-mongodb-engagement-dbb
+    cognito: nu0051001-d2b-local-cognito-dbb
+  auth:
+    cognito:
+      grantType: client_credentials
+      scope: api.d2b.com/channel-management
+      endpoint: https://digital-distribution-dev.auth.us-east-1.amazoncognito.com/oauth2/token
+report:
+  images:
+    bankLogo: ${BANK_LOGO_URL:https://library-sdb.apps.bancolombia.com/bds/6.17.7/assets/icons/logos/bancolombia-horizontal.svg}
+    supervisedLogo: ${SUPERVISED_LOGO_URL:https://library-sdb.apps.bancolombia.com/bds/6.17.7/assets/icons/logos/logo-vigilado.svg}
+    strokeImage: ${STROKE_IMAGE_URL:https://library-sdb.apps.bancolombia.com/bds/6.17.7/assets/icons/strokes/11.svg}
+  header:
+    reportByCriteriaTitle: ${REPORT_BY_CRITERIA_TITLE:CONSULTA DE ACTIVIDADES}
+    reportHistoryTitle: ${REPORT_HISTORY_TITLE:HISTORIAL DE ACTIVIDAD}
+    reportDetailedTitle: ${REPORT_DETAILED_TITLE:CONSULTA DE DETALLE DE ACTIVIDADES}
+    personalizedChannelName: ${PERSONALIZED_CHANNEL_NAME:GALATEA - ENGAGEMENT SERVICES}
+  fields:
+    basicInformation: ${BASIC_INFORMATION:{
+      "_id":"Id",
+      "transactionTracker":"Rastreador de trx",
+      "sessionId":"Identificador de sesión",
+      "transactionCode":"Código de trx",
+      "finalDate":"Fecha final",
+      "transactionCodeDesc":"Código de trx descripción",
+      "responseCode":"Código de respuesta",
+      "responseCodeDesc":"Descripción código de respuesta",
+      "channel":"Canal",
+      "documentType":"Tipo de documento",
+      "documentNumber":"Número de documento",
+      "customerName":"Nombre del cliente"
+      }}
+    detailedInformation: ${DETAILED_INFORMATION:{
+      "deviceNameId":"Nombre de dispositivo",
+      "ip":"Dirección IP",
+      "authenticationType":"Tipo de autenticación",
+      "currency":"Moneda",
+      "localAmount":"Monto local",
+      "internationalAmount":"Monto internacional",
+      "originProductType":"Tipo producto origen",
+      "originProductNumber":"Número producto origen",
+      "destinyProductType":"Tipo producto destino",
+      "destinyProductNumber":"Número producto destino",
+      "transactionVoucherNumber":"Número de voucher de trx",
+      "destinyBankCode":"Código banco destino",
+      "originBankCode":"Código banco origen",
+      "transactionType":"Tipo de transacción",
+      "transactionState":"Estado trx",
+      "token":"Token",
+      "changeRate":"Tasa de cambio",
+      "totalBatchRecords":"Total registros lote",
+      "serialToken":"Serial del token",
+      "entitlement":"Entitlement",
+      "batchName":"Nombre lote",
+      "loadMechanism":"Mecanismo de carga",
+      "paymentType":"Tipo de pago",
+      "transactionGroup":"Grupo de transacción",
+      "targetCurrency":"Objeto destino",
+      "authorizedUserName":"Nombre usuario autorizado",
+      "authorizedUserDocumentType":"Tipo documento autorizador",
+      "authorizedUserDocumentNumber":"Número documento autizador"
+      }}
+    historyInformation: ${HISTORY_INFORMATION:{
+      "deviceNameId":"Nombre dispositivo",
+      "ip":"IP",
+      "originProductNumber":"Producto Origen",
+      "destinyProductType":"Producto Destino",
+      "finalDate":"Fecha Transacción",
+      "localAmount":"Monto Local",
+      "internationalAmount":"Monto Internacional"
+      }}
+  font:
+    size:
+      columnPdf: ${REPORT_FONT_SIZE_COLUMN_PDF:8}
+      columnXlsx: ${REPORT_FONT_SIZE_COLUMN_XLSX:12}
+  style:
+    column:
+      padding: ${REPORT_STYLE_COLUMN_PADDING:3}
+  format:
+    date: ${REPORT_FORMAT_DATE:dd-MM-yyyy}
+    number: ${REPORT_FORMAT_NUMBER:#.#############}
+    pageIndex: ${REPORT_PAGE_INDEX:Página {0} de {1}}
+  detailed-report:
+    basicReportSubtitle: ${BASIC_REPORT_SUBTITLE:Información básica }
+    detailedReportSubtitle: ${DETAILED_REPORT_SUBTITLE:Detalle de la actividad }
+  filename:
+    byCriteria: ${REPORT_BY_CRITERIA_FILENAME:consultaDeActividades}
+    history: ${REPORT_HISTORY_FILENAME:historialDeActividad}
+    detailed: ${REPORT_DETAILED_FILENAME:detalleDeActividad}
+    secureMailBoxTransactionCode: ${SECURE_MAILBOX_TRANSACTION_CODE:6161}
+  cloudName: ${REPORT_CLOUD_NAME:local-bucket}
+
+channel-management:
+  transactionCode: 100
+  parameterName: consultaActividades

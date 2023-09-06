@@ -1,0 +1,46 @@
+buildscript {
+	ext {
+        cleanArchitectureVersion = '2.4.5'
+        springBootVersion = '2.7.11'
+        snakeyamlVersion = '2.0'
+        springDocVersion = '1.6.13'
+        sonarVersion = '3.0'
+        jacocoVersion = '0.8.8'
+        lombokVersion = '1.18.26'
+        D2BSDKVersion = '1.3.0'
+        log4j2Version = '2.17.2'
+        technicalLogVersion = '1.2.3'
+        jacksonVersion = '2.14.1'
+        bancolombiaSecretManagerVersion = '3.0.0'
+        itextVersion = '2.1.7'
+        dynamicReportsVersion = '6.12.1'
+        batikTranscoderVersion = '1.16'
+        batikCodecVersion = '1.16'
+        bcprovVersion = '1.73'
+        OkHttp3Version = '4.9.3'
+	}
+}
+
+plugins {
+	id 'co.com.bancolombia.cleanArchitecture' version "${cleanArchitectureVersion}"
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'org.sonarqube' version "${sonarVersion}"
+	id 'jacoco'
+}
+
+sonarqube {
+    def modules = subprojects.projectDir.collect { "${it.toString().replace(project.projectDir.toString() + "/", "")}" }
+    properties {
+        property "sonar.sourceEnconding", "UTF-8"
+        property "sonar.modules", "${modules.join(',')}"
+        property "sonar.sources", "src,deployment,settings.gradle,main.gradle,build.gradle,${modules.collect { "${it}/build.gradle" }.join(',')}"
+        property "sonar.test", "src/test"
+        property "sonar.java.binaries", ""
+        property "sonar.junit.reportsPath", ""
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.exclusions","**/*MainApplication.java"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}
+
+apply from: './main.gradle'

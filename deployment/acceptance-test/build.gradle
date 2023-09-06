@@ -1,0 +1,45 @@
+    plugins {
+        id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+        id 'java'
+        id 'com.github.ben-manes.versions' version '0.38.0'
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        maven { url "https://artifactory.apps.bancolombia.com/maven-bancolombia" }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.6'
+        }
+    }
+
+    dependencies {
+        testImplementation 'com.intuit.karate:karate-junit5:1.2.0'
+        testImplementation 'net.masterthought:cucumber-reporting:5.7.4'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+        testCompileOnly 'org.projectlombok:lombok:1.18.24'
+        testImplementation "commons-io:commons-io:2.11.0"
+        testImplementation "com.rabbitmq:amqp-client:5.16.0"
+        testImplementation "com.github.bancolombia:aws-secrets-manager-sync:3.0.0"
+        implementation platform('software.amazon.awssdk:bom:2.16.69')
+        testImplementation 'software.amazon.awssdk:s3'
+    }
+
+    test {
+        useJUnitPlatform()
+        systemProperty "karate.env", System.properties.getProperty("karate.env")
+        systemProperty "baseUrl", System.properties.getProperty("baseUrl")
+        systemProperty "bucket_name", System.properties.getProperty("bucket_name")
+        systemProperty "namespace", System.properties.getProperty("namespace")
+        systemProperty "rabbitMQSecret", System.properties.getProperty("rabbitMQSecret")
+        systemProperty "channelManagement", System.properties.getProperty("channelManagement")
+        systemProperty "secureMailboxTransactionCode", System.properties.getProperty("secureMailboxTransactionCode")
+        outputs.upToDateWhen { false }
+    }
